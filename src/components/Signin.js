@@ -12,23 +12,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import { useForm } from './useForm';
 
 const theme = createTheme();
 
 export const Signin = () => {
+
+  const email = useForm({type: 'email'});
+  const password = useForm({type: 'password'});
+  console.log(password.type);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -59,6 +51,7 @@ export const Signin = () => {
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
+              type='email'
               margin="normal"
               required
               fullWidth
@@ -74,7 +67,7 @@ export const Signin = () => {
               fullWidth
               name="password"
               label="Password"
-              type="password"
+              type='password'
               id="password"
               autoComplete="current-password"
             />
@@ -104,7 +97,6 @@ export const Signin = () => {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   )
