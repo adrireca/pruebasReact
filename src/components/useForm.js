@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-export const useForm = ({type}) => {
-    const [value, setValue] = useState('');
+export const useForm = ({ type }) => {
+    const [value, setValue] = React.useState('');
 
     const onChange = event => {
         setValue(event.target.value);

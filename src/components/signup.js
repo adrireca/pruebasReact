@@ -5,26 +5,63 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
+import { Link } from "react-router-dom";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import axios from 'axios';
+import axiosClient from "../axios-client.js";
+import {useStateContext} from "../context/ContextProvider.jsx";
 
 const theme = createTheme();
 
 
 export const Signup = () => {
 
-  const handleSubmit = (event) => {
+  /* Estados de los datos del formulario. */
+  const [firstName, setFirstName] = React.useState('');
+  const [lastName, setLastName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  const { setUser, setToken } = useStateContext();
+  const [errors, setErrors] = React.useState(null);
+
+  /* Modelo del login. */
+  const RegisterUserModel = {
+    firstName,
+    lastName,
+    email,
+    password
+  }
+
+  const onSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    /* Registra usuario. */
+    axiosClient.post('/signup', RegisterUserModel)
+      .then(({ data }) => {
+        setUser(data.user)
+        setToken(data.token);
+      })
+      .catch(err => {
+        const response = err.response;
+        if (response && response.status === 422) {
+          setErrors(response.data.errors)
+        }
+      })
+    // await axios.post('https://jsonplaceholder.typicode.com/users/', RegisterUserModel)
+    //             .then((response) => {
+
+    //             }).catch(err => {
+    //               console.log(err);
+    //             })
+
+    console.log(RegisterUserModel);
+
   };
 
   return (
@@ -45,10 +82,12 @@ export const Signup = () => {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  type='text'
+                  onChange={(e) => { setFirstName(e.target.value) }}
                   autoComplete="given-name"
                   name="firstName"
                   required
@@ -60,6 +99,8 @@ export const Signup = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  type='text'
+                  onChange={(e) => { setLastName(e.target.value) }}
                   required
                   fullWidth
                   id="lastName"
@@ -70,6 +111,8 @@ export const Signup = () => {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  type='email'
+                  onChange={(e) => { setEmail(e.target.value) }}
                   required
                   fullWidth
                   id="email"
@@ -80,11 +123,12 @@ export const Signup = () => {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  type='password'
+                  onChange={(e) => { setPassword(e.target.value) }}
                   required
                   fullWidth
                   name="password"
                   label="Password"
-                  type="password"
                   id="password"
                   autoComplete="new-password"
                 />
@@ -106,7 +150,7 @@ export const Signup = () => {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link to={"/signin"} variant="body2" className='enlacesSignup'>
                   Already have an account? Sign in
                 </Link>
               </Grid>

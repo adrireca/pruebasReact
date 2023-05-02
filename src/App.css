@@ -4,8 +4,19 @@
   padding: 0;
 }
 
+
+
 /* Estilos enlace a sign in y sign up del usuario. */
 .enlaces{
   text-decoration: none;
   color: #000;
+}
+
+
+
+/* Landing sign in. */
+.enlacesSignin, .enlacesSignup {
+  font-size: 0.875rem;
+  color: #1976d2;
+  text-decoration-color: rgba(25, 118, 210, 0.4);
 }

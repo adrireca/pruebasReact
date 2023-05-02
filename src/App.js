@@ -1,15 +1,16 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Nav } from './components/Nav';
 import { Signin } from './components/Signin';
 import { Signup } from './components/signup';
 import { NoPage } from './components/NoPage';
 import { Home } from './components/Home';
 import { Pistas } from './components/Pistas';
+import { ContextProvider } from './context/ContextProvider';
 
 function App() {
   return (
-    <BrowserRouter>
+    <ContextProvider>
       <Routes>
         <Route path="/" element={<Nav />}>
           <Route index element={<Home />} />
@@ -19,7 +20,7 @@ function App() {
           <Route path='*' element={<NoPage />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </ContextProvider>
   );
 }
 
