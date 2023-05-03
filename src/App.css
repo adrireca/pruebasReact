@@ -6,7 +6,7 @@
 
 
 
-/* Estilos enlace a sign in y sign up del usuario. */
+/* Estilos enlaces del menu dentro del icono usuario del nav. */
 .enlaces{
   text-decoration: none;
   color: #000;
@@ -14,7 +14,7 @@
 
 
 
-/* Landing sign in. */
+/* Landing sign in y sign up. */
 .enlacesSignin, .enlacesSignup {
   font-size: 0.875rem;
   color: #1976d2;

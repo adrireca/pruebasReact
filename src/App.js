@@ -6,6 +6,7 @@ import { Signup } from './components/signup';
 import { NoPage } from './components/NoPage';
 import { Home } from './components/Home';
 import { Pistas } from './components/Pistas';
+import { Contact } from './components/Contact';
 import { ContextProvider } from './context/ContextProvider';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path='signin' element={<Signin />} />
           <Route path='signup' element={<Signup />} />
           <Route path='pistas' element={<Pistas />} />
+          <Route path='contacto' element={<Contact />} />
           <Route path='*' element={<NoPage />} />
         </Route>
       </Routes>

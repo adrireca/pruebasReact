@@ -58,6 +58,13 @@ export const Nav = () => {
                   Pistas
                 </Button>
               </Link>
+              <Link to={'/contacto'} className='enlaces'>
+                <Button
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  Contacto
+                </Button>
+              </Link>
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
